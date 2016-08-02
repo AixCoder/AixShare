@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AixShareSdkHeaders.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [AixShare registerWechatWithAppID:@"wx4868b35061f87885"];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([AixShare handleOpenURL:url]) {
+        return YES;
+    }
     return YES;
 }
 

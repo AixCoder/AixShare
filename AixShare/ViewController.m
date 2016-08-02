@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "AixShare+Wechat.h"
 @interface ViewController ()
 
 @end
@@ -24,4 +24,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)shareTextToWechat:(id)sender {
+    
+    AixShareContent *shareContent = [[AixShareContent alloc] init];
+    shareContent.title = @"分享一次";
+    
+    [AixShare shareToWechatSession:shareContent Success:^(AixShareContent *shareContent) {
+        
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+        NSLog(@"fenxiang fail");
+    }];
+}
 @end
