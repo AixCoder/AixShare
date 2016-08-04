@@ -30,6 +30,17 @@
 				<string>wx4868b35061f87885</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>QQ</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1104881792</string>
+				<string>QQ41db2880</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

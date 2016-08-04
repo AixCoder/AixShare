@@ -20,6 +20,7 @@
     // Override point for customization after application launch.
     
     [AixShare registerWechatWithAppID:@"wx4868b35061f87885"];
+    [AixShare registerQQWithAppID:@"1104881792"];
     return YES;
 }
 

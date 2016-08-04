@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AixShare+Wechat.h"
+#import "AixShare+QQ.h"
 
 @interface AixShareSdkHeaders : NSObject
 

@@ -37,6 +37,21 @@ static NSString *platformName = @"weixin";
     
 }
 
++ (void)shareToWechatTimeLine:(AixShareContent *)shareContent Success:(shareSuccessHandler)shareSuccess Fail:(shareFailHandler)failHandler
+{
+    if (![self isInstalledWeChatApp]) {
+        
+        return;
+    }
+    
+    //验证分享的数据格式是否正确
+
+    [self shareToWechatWithContent:shareContent
+                             scene:1
+                           Success:shareSuccess
+                              Fail:failHandler];
+}
+
 + (BOOL)isInstalledWeChatApp
 {
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]];
@@ -55,7 +70,6 @@ static NSString *platformName = @"weixin";
         return;
     }
     
-    //检查有没有网络
     [AixShare sharedInstance].shareContent = content;
     [AixShare sharedInstance].shareSuccessCallBack = shareCompletionHandler;
     [AixShare sharedInstance].shareFailCallBack = shareFailHandler;
@@ -65,16 +79,18 @@ static NSString *platformName = @"weixin";
                                     @"scene":@(scene),
                                     @"sdkver":@"1.5",
                                     @"command":@"1010"}.mutableCopy;
-    //分享标题
-    if (content.title) {
-        wechatContent[@"title"] = content.title;
-        wechatContent[@"command"] = @"1020";
-    }
     
     AixMediaType media = content.mediaType;
     switch (media) {
-        case AixMediaTypeURL:
+        case AixMediaTypeNews:
         {
+            //新闻分享
+            wechatContent[@"command"] = @"1010";
+            wechatContent[@"description"] = content.subTitle;
+            wechatContent[@"mediaUrl"] = content.link;
+            wechatContent[@"objectType"] = @"5";
+            wechatContent[@"thumbData"] = [self aix_dataWithImage:content.image scale:CGSizeMake(100, 100)];
+            wechatContent[@"title"] = content.title;
             break;
         }
         default:
@@ -89,8 +105,6 @@ static NSString *platformName = @"weixin";
     
     NSString *wechatSchemeUrl = [NSString stringWithFormat:@"weixin://app/%@/sendreq/?",appID];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:wechatSchemeUrl]];
-    
-    
 }
 
 + (BOOL)weixin__hanldeOpenURL:(NSURL*)url
@@ -127,5 +141,14 @@ static NSString *platformName = @"weixin";
     }
     return NO;
 }
+
++ (NSData *)aix_dataWithImage:(UIImage *)image scale:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0,0, size.width, size.height)];
+    UIImage* scaledImage =UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return UIImageJPEGRepresentation(scaledImage, 1);
+}
+
 
 @end

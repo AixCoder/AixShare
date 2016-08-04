@@ -24,13 +24,27 @@
                                     <action selector="shareTextToWechat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mPf-OW-8rl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDq-9l-oXA">
+                                <rect key="frame" x="20" y="66" width="119" height="30"/>
+                                <state key="normal" title="分享URL到朋友圈"/>
+                                <connections>
+                                    <action selector="shareLinkToTimeLine:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xWM-73-fGF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rj-DB-43i">
+                                <rect key="frame" x="162" y="28" width="113" height="30"/>
+                                <state key="normal" title="QQ好友消息链接"/>
+                                <connections>
+                                    <action selector="toQQFriend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wdT-jh-WtG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="308" y="466"/>
+            <point key="canvasLocation" x="183" y="461"/>
         </scene>
     </scenes>
 </document>

@@ -16,4 +16,8 @@
                      Success:(shareSuccessHandler)shareSuccess
                         Fail:(shareFailHandler)failHandler;
 
++ (void)shareToWechatTimeLine:(AixShareContent *)shareContent
+                      Success:(shareSuccessHandler)shareSuccess
+                         Fail:(shareFailHandler)failHandler;
+
 @end

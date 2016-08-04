@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@class UIImage;
 
 typedef NS_ENUM(NSInteger,AixMediaType)
 {
-    AixMediaTypeURL = 1,
+    AixMediaTypeNews = 1,//新闻类型的数据
     AixMediaTypeImage = 2,
     AixMediaTypeVideo = 3,
     AixMediaTypeAudio = 4,
@@ -20,9 +21,11 @@ typedef NS_ENUM(NSInteger,AixMediaType)
 
 @interface AixShareContent : NSObject
 
-@property (nonatomic,copy)NSString *title;
-@property (nonatomic,copy)NSString *subTitle;
-@property (nonatomic,assign)AixMediaType mediaType;
+@property (nonatomic,copy  ) NSString     *title;
+@property (nonatomic,copy  ) NSString     *subTitle;
+@property (nonatomic,copy  ) NSString     *link;
+@property (nonatomic,strong) UIImage      *image;
+@property (nonatomic,assign) AixMediaType mediaType;
 
 @end
 

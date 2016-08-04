@@ -16,6 +16,8 @@
 		F61A4CC41D4F36B800E090B8 /* AixShare.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CC31D4F36B800E090B8 /* AixShare.m */; };
 		F61A4CC71D4F36D700E090B8 /* AixShare+Wechat.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CC61D4F36D700E090B8 /* AixShare+Wechat.m */; };
 		F61A4CCD1D4F382B00E090B8 /* AixShareSdkHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */; };
+		F61A4CD11D50A45400E090B8 /* shareImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F61A4CD01D50A45400E090B8 /* shareImage.png */; };
+		F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,9 @@
 		F61A4CC61D4F36D700E090B8 /* AixShare+Wechat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+Wechat.m"; sourceTree = "<group>"; };
 		F61A4CCB1D4F382B00E090B8 /* AixShareSdkHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AixShareSdkHeaders.h; sourceTree = "<group>"; };
 		F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AixShareSdkHeaders.m; sourceTree = "<group>"; };
+		F61A4CD01D50A45400E090B8 /* shareImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareImage.png; sourceTree = "<group>"; };
+		F61A4CD21D50B15500E090B8 /* AixShare+QQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AixShare+QQ.h"; sourceTree = "<group>"; };
+		F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+QQ.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,10 +97,13 @@
 		F61A4CC11D4F369A00E090B8 /* AixShareSDK */ = {
 			isa = PBXGroup;
 			children = (
+				F61A4CD01D50A45400E090B8 /* shareImage.png */,
 				F61A4CC21D4F36B800E090B8 /* AixShare.h */,
 				F61A4CC31D4F36B800E090B8 /* AixShare.m */,
 				F61A4CC51D4F36D700E090B8 /* AixShare+Wechat.h */,
 				F61A4CC61D4F36D700E090B8 /* AixShare+Wechat.m */,
+				F61A4CD21D50B15500E090B8 /* AixShare+QQ.h */,
+				F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */,
 				F61A4CCB1D4F382B00E090B8 /* AixShareSdkHeaders.h */,
 				F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */,
 			);
@@ -162,6 +170,7 @@
 				F61A4CB91D4F29B000E090B8 /* LaunchScreen.storyboard in Resources */,
 				F61A4CB61D4F29B000E090B8 /* Assets.xcassets in Resources */,
 				F61A4CB41D4F29B000E090B8 /* Main.storyboard in Resources */,
+				F61A4CD11D50A45400E090B8 /* shareImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +184,7 @@
 				F61A4CCD1D4F382B00E090B8 /* AixShareSdkHeaders.m in Sources */,
 				F61A4CB11D4F29B000E090B8 /* ViewController.m in Sources */,
 				F61A4CAE1D4F29B000E090B8 /* AppDelegate.m in Sources */,
+				F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */,
 				F61A4CC41D4F36B800E090B8 /* AixShare.m in Sources */,
 				F61A4CC71D4F36D700E090B8 /* AixShare+Wechat.m in Sources */,
 				F61A4CAB1D4F29B000E090B8 /* main.m in Sources */,
