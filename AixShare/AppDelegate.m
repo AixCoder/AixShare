@@ -21,6 +21,9 @@
     
     [AixShare registerWechatWithAppID:@"wx4868b35061f87885"];
     [AixShare registerQQWithAppID:@"1104881792"];
+    [AixShare registerWeiboWithAppID:@"1772193724"
+                              appKey:@"453283216b8c885dad2cdb430c74f62a"
+                         redirectURL:@"http://www.limon.top"];
     return YES;
 }
 

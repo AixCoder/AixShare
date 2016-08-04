@@ -31,6 +31,8 @@ typedef NS_ENUM(NSInteger,AixMediaType)
 
 typedef void(^shareSuccessHandler)(AixShareContent *shareContent);
 typedef void(^shareFailHandler)(AixShareContent *shareContent ,NSError *shareError);
+typedef void(^AuthSuccess)(NSDictionary *authInfo);
+typedef void(^AuthFail) (NSDictionary *message, NSError *error);
 
 @interface AixShare : NSObject
 
@@ -38,6 +40,8 @@ typedef void(^shareFailHandler)(AixShareContent *shareContent ,NSError *shareErr
 
 @property (nonatomic,copy  ) shareSuccessHandler shareSuccessCallBack;
 @property (nonatomic,copy  ) shareFailHandler    shareFailCallBack;
+@property (nonatomic,copy  ) AuthSuccess         oauthSuccessCallBack;
+@property (nonatomic,copy  ) AuthFail            oauthFailCallBack;
 @property (nonatomic,strong) AixShareContent     *shareContent;
 
 +(AixShare*)sharedInstance;

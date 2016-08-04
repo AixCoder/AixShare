@@ -18,6 +18,7 @@
 		F61A4CCD1D4F382B00E090B8 /* AixShareSdkHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */; };
 		F61A4CD11D50A45400E090B8 /* shareImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F61A4CD01D50A45400E090B8 /* shareImage.png */; };
 		F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */; };
+		F6E54D1B1D5306CC007781FA /* AixShare+Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E54D1A1D5306CC007781FA /* AixShare+Weibo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		F61A4CD01D50A45400E090B8 /* shareImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareImage.png; sourceTree = "<group>"; };
 		F61A4CD21D50B15500E090B8 /* AixShare+QQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AixShare+QQ.h"; sourceTree = "<group>"; };
 		F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+QQ.m"; sourceTree = "<group>"; };
+		F6E54D191D5306CC007781FA /* AixShare+Weibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AixShare+Weibo.h"; sourceTree = "<group>"; };
+		F6E54D1A1D5306CC007781FA /* AixShare+Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+Weibo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 				F61A4CC61D4F36D700E090B8 /* AixShare+Wechat.m */,
 				F61A4CD21D50B15500E090B8 /* AixShare+QQ.h */,
 				F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */,
+				F6E54D191D5306CC007781FA /* AixShare+Weibo.h */,
+				F6E54D1A1D5306CC007781FA /* AixShare+Weibo.m */,
 				F61A4CCB1D4F382B00E090B8 /* AixShareSdkHeaders.h */,
 				F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */,
 			);
@@ -182,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61A4CCD1D4F382B00E090B8 /* AixShareSdkHeaders.m in Sources */,
+				F6E54D1B1D5306CC007781FA /* AixShare+Weibo.m in Sources */,
 				F61A4CB11D4F29B000E090B8 /* ViewController.m in Sources */,
 				F61A4CAE1D4F29B000E090B8 /* AppDelegate.m in Sources */,
 				F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */,

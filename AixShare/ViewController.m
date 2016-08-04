@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "AixShare+Wechat.h"
 #import "AixShare+QQ.h"
+#import "AixShare+Weibo.h"
+
 @interface ViewController ()
 
 @end
@@ -75,6 +77,38 @@
 //    }];
     
     [AixShare shareToQQZone:content Success:^(AixShareContent *shareContent) {
+        
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+    }];
+}
+
+- (IBAction)oauthWeibo:(id)sender {
+    
+    [AixShare weiboAuth:nil
+            redirectUri:@"http://www.limon.top"
+                Success:^(NSDictionary *authInfo) {
+        
+    } Fail:^(NSDictionary *message, NSError *error) {
+        
+        
+    }];
+}
+
+- (IBAction)shareToWB:(id)sender
+{
+    AixShareContent *content = [[AixShareContent alloc] init];
+    content.link = @"http://www.cz001.com.cn";
+    content.title = @"常州网";
+    content.image = [UIImage imageNamed:@"shareImage"];
+    
+//    [AixShare shareToWeibo:content withAccessToken:@"2.00xuzZwCkXwvvBb6c28d4edf3fypgC" Success:^(AixShareContent *shareContent) {
+//        
+//    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+//        
+//    }];
+    
+    [AixShare shareToWeibo:content Success:^(AixShareContent *shareContent) {
         
     } Fail:^(AixShareContent *shareContent, NSError *shareError) {
         

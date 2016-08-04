@@ -38,6 +38,20 @@
                                     <action selector="toQQFriend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wdT-jh-WtG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akg-n8-fhh">
+                                <rect key="frame" x="20" y="104" width="60" height="30"/>
+                                <state key="normal" title="微博登录"/>
+                                <connections>
+                                    <action selector="oauthWeibo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tnh-Zc-zmY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uid-jO-SkU">
+                                <rect key="frame" x="20" y="142" width="104" height="30"/>
+                                <state key="normal" title="分享URL到微博"/>
+                                <connections>
+                                    <action selector="shareToWB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t7J-oe-zw4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
