@@ -52,6 +52,13 @@
                                     <action selector="shareToWB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t7J-oe-zw4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ad9-vD-XiP">
+                                <rect key="frame" x="155" y="66" width="120" height="30"/>
+                                <state key="normal" title="扣扣空间消息链接"/>
+                                <connections>
+                                    <action selector="shareToQQZone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qWD-iG-b4W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

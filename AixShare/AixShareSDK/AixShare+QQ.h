@@ -8,6 +8,14 @@
 
 #import "AixShare.h"
 
+typedef NS_ENUM(NSInteger,ASQQShareError)
+{
+    ASQQShareErrorNotInstallApp = -10,
+    ASQQShareErrorShareDataFormatError,
+    ASQQShareErrorNotRegisterApp,
+    ASQQShareErrorGvieUpShareOperation,
+};
+
 typedef NS_ENUM(NSUInteger,AixPboardEncodingType)
 {
     AixPboardEncodingTypeKeyedArchiver,

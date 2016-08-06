@@ -25,10 +25,27 @@ static NSString *platformName = @"weixin";
     //判断是否能分享(微信必须要安装客户端才能分享)
     if (![self isInstalledWeChatApp]) {
         
+        NSError *error = [NSError errorWithDomain:@"没有安装微信APP，无法分享" code:ASWechatErrorNotInstallApp userInfo:nil];
+        
+        failHandler(shareContent,error);
         return;
     }
-    //验证分享的数据格式是否正确
+    //验证分享的数据格式是否正确(最起码要设置分享的标题文本内容吧)
+    if ([shareContent isEmpty:@[@"title"] AndNotEmpty:nil]) {
+        
+        NSError *error = [NSError errorWithDomain:@"微信分享数据格式有误" code:ASWechatErrorDataFormatError userInfo:nil];
+        failHandler(shareContent,error);
+        return;
+    }
     
+    //检查是否设置了appid
+    NSDictionary *wechatAppKey = [AixShare sharedInstance].appsKeys[platformName];
+    if (!wechatAppKey) {
+        NSError *error = [NSError errorWithDomain:@"未注册weichat appkey" code:ASWechatErrorNotRegisterWechat userInfo:nil];
+        failHandler(shareContent,error);
+        return;
+    }
+
     //调用微信爱屁屁进行分享操作
     [self shareToWechatWithContent:shareContent
                              scene:0
@@ -39,12 +56,22 @@ static NSString *platformName = @"weixin";
 
 + (void)shareToWechatTimeLine:(AixShareContent *)shareContent Success:(shareSuccessHandler)shareSuccess Fail:(shareFailHandler)failHandler
 {
+    //判断是否能分享(微信必须要安装客户端才能分享)
     if (![self isInstalledWeChatApp]) {
         
+        NSError *error = [NSError errorWithDomain:@"没有安装微信APP，无法分享" code:ASWechatErrorNotInstallApp userInfo:nil];
+        
+        failHandler(shareContent,error);
         return;
     }
     
-    //验证分享的数据格式是否正确
+    //验证分享的数据格式是否正确(最起码要设置分享的标题文本内容吧)
+    if ([shareContent isEmpty:@[@"title"] AndNotEmpty:nil]) {
+        
+        NSError *error = [NSError errorWithDomain:@"微信分享数据格式有误" code:ASWechatErrorDataFormatError userInfo:nil];
+        failHandler(shareContent,error);
+        return;
+    }
 
     [self shareToWechatWithContent:shareContent
                              scene:1
@@ -57,18 +84,12 @@ static NSString *platformName = @"weixin";
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]];
 }
 
+//scene 0：好友 1：朋友圈
 + (void)shareToWechatWithContent:(AixShareContent *)content
                            scene:(NSInteger)scene
                          Success:(shareSuccessHandler)shareCompletionHandler
                             Fail:(shareFailHandler)shareFailHandler
 {
-    
-    //检查是否设置了appid
-    NSDictionary *wechatAppKey = [AixShare sharedInstance].appsKeys[platformName];
-    if (!wechatAppKey) {
-        //没有设置appid,请先在delegate设置appid
-        return;
-    }
     
     [AixShare sharedInstance].shareContent = content;
     [AixShare sharedInstance].shareSuccessCallBack = shareCompletionHandler;
@@ -85,16 +106,27 @@ static NSString *platformName = @"weixin";
         case AixMediaTypeNews:
         {
             //新闻分享
-            wechatContent[@"command"] = @"1010";
-            wechatContent[@"description"] = content.subTitle;
-            wechatContent[@"mediaUrl"] = content.link;
-            wechatContent[@"objectType"] = @"5";
-            wechatContent[@"thumbData"] = [self aix_dataWithImage:content.image scale:CGSizeMake(100, 100)];
-            wechatContent[@"title"] = content.title;
+            if ([content isEmpty:nil AndNotEmpty:@[@"title",@"subTitle",@"link"]]) {
+                
+                wechatContent[@"description"] = content.subTitle;
+                wechatContent[@"mediaUrl"] = content.link;
+                wechatContent[@"objectType"] = @"5";
+                wechatContent[@"thumbData"] = [self aix_dataWithImage:content.image scale:CGSizeMake(100, 100)];
+                wechatContent[@"title"] = content.title;
+
+            }else{
+                
+                shareFailHandler(content,[NSError errorWithDomain:@"分享数据格式有误" code:ASWechatErrorDataFormatError userInfo:nil]);
+                
+                return;
+            }
             break;
         }
         default:
+        {
+            NSLog(@"未指定分享内容的类型");
             break;
+        }
     }
     
     NSString *appID = [AixShare sharedInstance].appsKeys[platformName][@"AppID"];

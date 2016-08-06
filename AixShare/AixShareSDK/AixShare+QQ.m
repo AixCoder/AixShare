@@ -28,9 +28,18 @@ static NSString *platform = @"QQ";
     BOOL QQInstalled = [self isInstallQQApp];
     if (!QQInstalled) {
         
+        NSError *error = [NSError errorWithDomain:@"未安装QQ" code:ASQQShareErrorNotInstallApp userInfo:nil];
+        shareFail(shareContent,error);
         return;
     }
     
+    NSString *appKey = [AixShare sharedInstance].appsKeys[platform][@"appid"];
+    if (!appKey) {
+        
+        NSError *error = [NSError errorWithDomain:@"未注册QQ appKey" code:ASQQShareErrorNotRegisterApp userInfo:nil];
+        shareFail(shareContent,error);
+        return;
+    }
     [self shareContent:shareContent
                     To:0
                Success:shareSuccess
@@ -41,12 +50,25 @@ static NSString *platform = @"QQ";
               Success:(shareSuccessHandler)shareSuccess
                  Fail:(shareFailHandler)shareFail
 {
+    
     BOOL QQInstalled = [self isInstallQQApp];
     if (!QQInstalled) {
         
+        NSError *error = [NSError errorWithDomain:@"未安装QQ" code:ASQQShareErrorNotInstallApp userInfo:nil];
+        shareFail(shareContent,error);
         return;
     }
     
+    //有没有注册QQ app信息
+    NSString *appKey = [AixShare sharedInstance].appsKeys[platform][@"appid"];
+    if (!appKey) {
+        
+        NSError *error = [NSError errorWithDomain:@"未注册QQ appKey" code:ASQQShareErrorNotRegisterApp userInfo:nil];
+        shareFail(shareContent,error);
+        return;
+    }
+
+    //调用APP进行分享
     [self shareContent:shareContent
                     To:1
                Success:shareSuccess
@@ -67,6 +89,9 @@ static NSString *platform = @"QQ";
              Success:(shareSuccessHandler)shareSuccess
                 Fail:(shareFailHandler)shareFail
 {
+    [AixShare sharedInstance].shareSuccessCallBack = shareSuccess;
+    [AixShare sharedInstance].shareFailCallBack = shareFail;
+    
     NSMutableString *openUrl = [[NSMutableString alloc] initWithString:@"mqqapi://share/to_fri?thirdAppDisplayName="];
     [openUrl appendString:[self base64Encode:[self CFBundleDisplayName]]];
     [openUrl appendString:@"&version=1&cflag="];
@@ -80,25 +105,37 @@ static NSString *platform = @"QQ";
         case AixMediaTypeNews:
         {
             //分享新闻
-            NSData *imgData = UIImageJPEGRepresentation(shareContent.image, 1);
-            NSDictionary *value = @{@"previewimagedata":imgData};
-            
-            [self setGeneralPasteboard:@"com.tencent.mqq.api.apiLargeData" Value:value encoding:AixPboardEncodingTypeKeyedArchiver];
-            
-            NSString *msgType = @"news";
-            NSString *title = [self urlEncode:[self base64Encode:shareContent.title]];
-            NSString *url = [self urlEncode:[self base64Encode:shareContent.link]];
-            NSString *description = [self urlEncode:[self base64Encode:shareContent.subTitle]];
-            
-            [openUrl appendFormat:@"%@&title=%@&url=%@&description=%@&objectlocation=pasteboard",msgType,title,url,description];
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
-            
+            if ([shareContent isEmpty:nil AndNotEmpty:@[@"title",@"link",@"subTitle",@"image"]]) {
+                
+                NSData *imgData = UIImageJPEGRepresentation(shareContent.image, 1);
+                NSDictionary *value = @{@"previewimagedata":imgData};
+                
+                [self setGeneralPasteboard:@"com.tencent.mqq.api.apiLargeData" Value:value encoding:AixPboardEncodingTypeKeyedArchiver];
+                
+                NSString *msgType = @"news";
+                NSString *title = [self urlEncode:[self base64Encode:shareContent.title]];
+                NSString *url = [self urlEncode:[self base64Encode:shareContent.link]];
+                NSString *description = [self urlEncode:[self base64Encode:shareContent.subTitle]];
+                [AixShare sharedInstance].shareContent = shareContent;
+
+                [openUrl appendFormat:@"%@&title=%@&url=%@&description=%@&objectlocation=pasteboard",msgType,title,url,description];
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
+                
+            }else{
+                
+                NSError *error = [NSError errorWithDomain:@"分享到QQ的数据有误" code:ASQQShareErrorShareDataFormatError userInfo:nil];
+                shareFail(shareContent,error);
+                return;
+            }
             break;
         }
             
         default:
+        {
+            NSLog(@"未指定分享内容的类型");
             break;
+        }
     }
 }
 
@@ -160,5 +197,60 @@ static NSString *platform = @"QQ";
     }
 }
 
++ (BOOL)QQ__hanldeOpenURL:(NSURL *)openUrl
+{
+    //分享
+    if ([openUrl.scheme hasPrefix:@"QQ"]) {
+        
+        NSDictionary *result = [self parseUrl:openUrl.query];
+        if ([result[@"error"] intValue] != 0) {
+            
+            NSString *errString = [self base64Decode:result[@"error_description"]];
+            NSError *error = [NSError errorWithDomain:errString
+                                                 code:[result[@"error"] intValue]
+                                             userInfo:nil];
+            
+            if ([AixShare sharedInstance].shareFailCallBack) {
+                [AixShare sharedInstance].shareFailCallBack(nil,error);
+            }
+        }else{
+            
+            if ([AixShare sharedInstance].shareSuccessCallBack) {
+                [AixShare sharedInstance].shareSuccessCallBack([AixShare sharedInstance].shareContent);
+            }
+        }
+        
+    }else if ([openUrl.scheme hasPrefix:@"tencent"]){
+        //oauth 登录
+        
+    }
+    return NO;
+}
 
++ (NSDictionary *)parseUrl:(NSString *)urlStr
+{
+    NSArray *components = [urlStr componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    for (NSString *keyAndValue in components) {
+        
+        NSRange range = [keyAndValue rangeOfString:@"="];
+        if (range.location)
+        {
+            NSString *key = [keyAndValue substringToIndex:range.location];
+            NSString *value = [keyAndValue substringFromIndex:(range.location + 1)];
+            
+            dic[key] = value;
+        }
+    }
+    return dic;
+}
+
++ (NSString *)base64Decode:(NSString *)base64
+{
+    NSString *string = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:base64 options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding];
+    
+    return string;
+}
 @end

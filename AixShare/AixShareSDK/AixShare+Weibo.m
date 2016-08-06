@@ -126,13 +126,22 @@ static NSString *platform = @"weibo";
     [AixShare sharedInstance].oauthSuccessCallBack = success;
     [AixShare sharedInstance].oauthFailCallBack = fail;
     
-    if ([self isInstallWeiboApp]) {
+    if (![self isInstallWeiboApp]) {
         //调用APP 完成auth
         
     }else{
         
         //web auth
         NSString *appKey = [AixShare sharedInstance].appsKeys[platform][@"appID"];
+        
+        if (!appKey) {
+            
+            NSError *error = [NSError errorWithDomain:@"未注册微博平台" code:ASWeiboShareErrorUnregisteredApp userInfo:nil];
+            fail(nil,error);
+            return;
+        }
+        
+        NSAssert(redirecturi, @"must need");
         scope = scope ? scope : @"all";
         NSString *webOauthUrl = [NSString stringWithFormat:@"https://open.weibo.cn/oauth2/authorize?client_id=%@&response_type=code&redirect_uri=%@&scope=%@",appKey,redirecturi,scope];
         
@@ -179,6 +188,7 @@ static NSString *platform = @"weibo";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
+    //网页底部添加关闭按钮
     NSString *scriptStr = @"var button = document.createElement('a'); button.setAttribute('href', 'about:blank'); button.innerHTML = '关闭'; button.setAttribute('style', 'width: calc(100% - 40px); background-color: gray;display: inline-block;height: 40px;line-height: 40px;text-align: center;color: #777777;text-decoration: none;border-radius: 3px;background: linear-gradient(180deg, white, #f1f1f1);border: 1px solid #CACACA;box-shadow: 0 2px 3px #DEDEDE, inset 0 0 0 1px white;text-shadow: 0 2px 0 white;position: fixed;left: 0;bottom: 0;margin: 20px;font-size: 18px;'); document.body.appendChild(button);";
     
     scriptStr = [scriptStr stringByAppendingString:@"document.querySelector('aside.logins').style.display = 'none';"];
@@ -204,7 +214,7 @@ static NSString *platform = @"weibo";
             
             [webView removeFromSuperview];
             //用户放弃微博授权
-            weakSelf.oauthFailCallBack(nil,[NSError errorWithDomain:@"用户放弃授权" code:-10 userInfo:nil]);
+            weakSelf.oauthFailCallBack(nil,[NSError errorWithDomain:@"用户放弃授权" code:ASWeiboShareErrorGiveUpOAuth userInfo:nil]);
         }];
     }
 }
@@ -252,10 +262,20 @@ static NSString *platform = @"weibo";
             
             if (!error) {
                 weakSelf.oauthSuccessCallBack(result);
+                //主线程关闭页面
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [webView removeFromSuperview];
+                });
             }
         }];
         [dataTask resume];
         
+    }else{
+        
+        NSError *error = [NSError errorWithDomain:@"微博授权回调页填写错误,请和服务器上设置的一致" code:ASWeiboShareErrorredirectURLError userInfo:nil];
+        if ([AixShare sharedInstance].oauthFailCallBack) {
+            [AixShare sharedInstance].oauthFailCallBack(nil,error);
+        }
     }
 }
 

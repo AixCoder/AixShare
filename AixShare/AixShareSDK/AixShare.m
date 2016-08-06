@@ -73,6 +73,23 @@
 
 @implementation AixShareContent
 
-
+- (BOOL)isEmpty:(NSArray *)emptyValueKeys
+    AndNotEmpty:(NSArray *)notEmptyValueKeys
+{
+    for (NSString *emptyKey in emptyValueKeys) {
+        if ([self valueForKey:emptyKey]) {
+            return NO;
+        }
+    }
+    
+    for (NSString *notEmptyKey in notEmptyValueKeys) {
+        
+        if (![self valueForKey:notEmptyKey]) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
 
 @end

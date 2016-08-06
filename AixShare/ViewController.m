@@ -39,12 +39,35 @@
     //分享到微信好友
     [AixShare shareToWechatSession:shareContent Success:^(AixShareContent *shareContent) {
         
-    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        NSLog(@"分享到微信好友成功");
         
-        NSLog(@"fenxiang fail");
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+
+        NSLog(@"分享到微信失败,%@",[shareError domain]);
     }];
     
 }
+
+- (IBAction)shareToQQZone:(id)sender {
+    
+    AixShareContent *content = [AixShareContent new];
+    content.link = @"http://tech.qq.com/zt2012/tmtdecode/252.htm";
+    content.title = @"分享一次到扣扣空间 ";
+    content.subTitle = @"测试自己打造的分享小框架";
+    content.image = [UIImage imageNamed:@"shareImage"];
+
+    content.mediaType = AixMediaTypeNews;
+    
+    [AixShare shareToQQZone:content Success:^(AixShareContent *shareContent) {
+        
+        NSLog(@"分享到扣扣空间成功");
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+        NSLog(@"分享到扣扣空间失败 %@",shareError);
+    }];
+}
+
+
 - (IBAction)shareLinkToTimeLine:(id)sender {
     
     AixShareContent *shareContent = [[AixShareContent alloc] init];
@@ -56,7 +79,10 @@
 
     [AixShare shareToWechatTimeLine:shareContent Success:^(AixShareContent *shareContent) {
         
+        NSLog(@"朋友圈分享成功");
     } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+        NSLog(@"朋友圈分享失败");
         
     }];
 }
@@ -70,17 +96,14 @@
     content.link = @"http://tech.qq.com/zt2012/tmtdecode/252.htm";
     content.mediaType = AixMediaTypeNews;
     
-//    [AixShare shareToFriend:content Success:^(AixShareContent *shareContent) {
-//        
-//    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
-//        
-//    }];
-    
-    [AixShare shareToQQZone:content Success:^(AixShareContent *shareContent) {
+    [AixShare shareToFriend:content Success:^(AixShareContent *shareContent) {
         
+        NSLog(@"分享到QQ好友成功");
     } Fail:^(AixShareContent *shareContent, NSError *shareError) {
         
+        NSLog(@"分享到QQ好友失败,%@",shareError.domain);
     }];
+    
 }
 
 - (IBAction)oauthWeibo:(id)sender {
@@ -89,9 +112,12 @@
             redirectUri:@"http://www.limon.top"
                 Success:^(NSDictionary *authInfo) {
         
+                    NSLog(@"微博授权成功");
+                    
     } Fail:^(NSDictionary *message, NSError *error) {
         
         
+        NSLog(@"授权失败");
     }];
 }
 
@@ -114,5 +140,6 @@
         
     }];
 }
+
 
 @end

@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger,AixMediaType)
 @property (nonatomic,strong) UIImage      *image;
 @property (nonatomic,assign) AixMediaType mediaType;
 
+- (BOOL)isEmpty:(NSArray*)emptyValueKeys AndNotEmpty:(NSArray *)notEmptyValueKeys;
+
 @end
 
 typedef void(^shareSuccessHandler)(AixShareContent *shareContent);
