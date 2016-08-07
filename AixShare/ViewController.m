@@ -108,16 +108,13 @@
 
 - (IBAction)oauthWeibo:(id)sender {
     
-    [AixShare weiboAuth:nil
-            redirectUri:@"http://www.limon.top"
-                Success:^(NSDictionary *authInfo) {
+    [AixShare weiboAuthWithRedirectUri:@"http://sns.whalecloud.com/sina2/callback" Success:^(NSDictionary *authInfo) {
         
-                    NSLog(@"微博授权成功");
-                    
+        
     } Fail:^(NSDictionary *message, NSError *error) {
         
-        
-        NSLog(@"授权失败");
+        NSLog(@"授权失败%@",error);
+
     }];
 }
 
@@ -128,17 +125,42 @@
     content.title = @"常州网";
     content.image = [UIImage imageNamed:@"shareImage"];
     
-//    [AixShare shareToWeibo:content withAccessToken:@"2.00xuzZwCkXwvvBb6c28d4edf3fypgC" Success:^(AixShareContent *shareContent) {
-//        
-//    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
-//        
-//    }];
     
     [AixShare shareToWeibo:content Success:^(AixShareContent *shareContent) {
         
     } Fail:^(AixShareContent *shareContent, NSError *shareError) {
         
     }];
+}
+
+- (IBAction)shareTextToWeibo:(id)sender {
+    
+    AixShareContent *shareContent = [[AixShareContent alloc] init];
+    shareContent.title = @"纯文字分享";
+    
+    [AixShare shareToWeibo:shareContent Success:^(AixShareContent *shareContent) {
+        
+        NSLog(@"分享到微博成功");
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+        NSLog(@"分享到微博失败%@",shareError);
+    }];
+}
+
+- (IBAction)shareTextAndImgToWeibo:(id)sender {
+    
+    AixShareContent *shareContent = [[AixShareContent alloc] init];
+    shareContent.title = @"分享一个看一看";
+    shareContent.image = [UIImage imageNamed:@"shareImage"];
+    
+    [AixShare shareToWeibo:shareContent Success:^(AixShareContent *shareContent) {
+        
+        NSLog(@"分享到微博成功");
+    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+        
+        NSLog(@"分享到微博失败%@",shareError);
+    }];
+
 }
 
 

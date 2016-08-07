@@ -22,10 +22,9 @@ typedef NS_ENUM(NSInteger,ASWeiboShareError)
 
 + (void)registerWeiboWithAppID:(NSString *)appID appKey:(NSString *)appKey redirectURL:(NSString *)redirectUrl;
 
-+ (void)weiboAuth:(NSString*)scope
-      redirectUri:(NSString *)redirecturi
-          Success:(AuthSuccess)success
-             Fail:(AuthFail)fail;
++ (void)weiboAuthWithRedirectUri:(NSString *)redirecturi
+                         Success:(AuthSuccess)success
+                            Fail:(AuthFail)fail;
 
 //调用APP直接分享
 + (void)shareToWeibo:(AixShareContent *)shareContent Success:(shareSuccessHandler)success Fail:(shareFailHandler)fail;

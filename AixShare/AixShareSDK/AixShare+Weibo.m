@@ -44,19 +44,52 @@ static NSString *platform = @"weibo";
              Success:(shareSuccessHandler)success
                 Fail:(shareFailHandler)fail
 {
-    //分享的链接
-    NSString *title = shareContent.title;
-    NSString *link = shareContent.link;
-    UIImage *image = shareContent.image;
-    NSData *imgData = UIImageJPEGRepresentation(image, 1);
-    NSDictionary *message = @{@"__class":@"WBMessageObject",
-                              @"mediaObject":@{
-                                      @"__class":@"WBWebpageObject",
-                                      @"objectID":@"identifier1",
-                                      @"title":title,
-                                      @"description":title,
-                                      @"thumbnailData":imgData,
-                                      @"webpageUrl":link}};
+    if (![self isInstallWeiboApp]) {
+        
+        NSError *error = [NSError errorWithDomain:@"未安装微博APP" code:ASWeiboShareErrorNotInstallApp userInfo:nil];
+        fail(shareContent,error);
+        return;
+    }
+    
+    NSString *weiboAppKey = [AixShare sharedInstance].appsKeys[platform][@"appID"];
+    if (!weiboAppKey) {
+        
+        NSError *error = [NSError errorWithDomain:@"unregister app" code:ASWeiboShareErrorUnregisteredApp userInfo:nil];
+        fail(shareContent,error);
+        return;
+    }
+    
+    [AixShare sharedInstance].shareSuccessCallBack = success;
+    [AixShare sharedInstance].shareFailCallBack = fail;
+    
+    NSDictionary *message;
+    if ([shareContent isEmpty:@[@"link",@"image"] AndNotEmpty:@[@"title"]]) {
+        //纯文本分享
+        message = @{@"__class":@"WBMessageObject",
+                    @"text":shareContent.title};
+    }else if ([shareContent isEmpty:@[@"link"] AndNotEmpty:@[@"image",@"title"]]){
+        //文字和图片分享
+        NSData *imgData = UIImageJPEGRepresentation(shareContent.image, 1);
+        message = @{@"__class":@"WBMessageObject",
+                    @"imageObject":@{@"imageData":imgData},
+                    @"text":shareContent.title};
+        
+    }else if ([shareContent isEmpty:nil AndNotEmpty:@[@"title",@"link",@"image"]]) {
+        //图片文字链接分享
+        NSString *title = shareContent.title;
+        NSString *link = shareContent.link;
+        UIImage *image = shareContent.image;
+        NSData *imgData = UIImageJPEGRepresentation(image, 1);
+        message = @{@"__class":@"WBMessageObject",
+                                  @"mediaObject":@{
+                                          @"__class":@"WBWebpageObject",
+                                          @"objectID":@"identifier1",
+                                          @"title":title,
+                                          @"description":title,
+                                          @"thumbnailData":imgData,
+                                          @"webpageUrl":link}};
+        
+    }
     
     NSString *uuid =[NSUUID UUID].UUIDString;
     NSData *transferObject = [NSKeyedArchiver archivedDataWithRootObject:@{@"__class":@"WBSendMessageToWeiboRequest",
@@ -78,6 +111,7 @@ static NSString *platform = @"weibo";
     //open url
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"weibosdk://request?id=%@&sdkversion=003013000",uuid]];
     [[UIApplication sharedApplication] openURL:url];
+    
 }
 
 + (void)shareToWeibo:(AixShareContent *)shareContent
@@ -118,17 +152,56 @@ static NSString *platform = @"weibo";
     //图片
 }
 
-+ (void)weiboAuth:(NSString *)scope
-      redirectUri:(NSString *)redirecturi
-          Success:(AuthSuccess)success
-             Fail:(AuthFail)fail
++ (void)weiboAuthWithRedirectUri:(NSString *)redirecturi
+                         Success:(AuthSuccess)success
+                            Fail:(AuthFail)fail
 {
     [AixShare sharedInstance].oauthSuccessCallBack = success;
     [AixShare sharedInstance].oauthFailCallBack = fail;
     
-    if (![self isInstallWeiboApp]) {
+    if ([self isInstallWeiboApp]) {
         //调用APP 完成auth
-        
+        NSString *redirectURL = [AixShare sharedInstance].appsKeys[platform][@"redirectURL"];
+        if ([redirectURL isEqualToString:redirecturi]) {
+            
+            NSString *uuid = [[NSUUID UUID] UUIDString];
+            
+            NSDictionary *obj1 = @{@"__class":@"WBAuthorizeRequest",
+                                   @"redirectURI":redirecturi,
+                                   @"requestID":uuid,
+                                   @"scope":@"all"};
+            NSData *transferObjectData = [NSKeyedArchiver archivedDataWithRootObject:obj1];
+            
+            
+            NSDictionary *obj2 = @{@"mykey":@"as you like",
+                                   @"SSO_From":@"SendMessageToWeiboViewController"
+                                   };
+            NSData *userInfoData = [NSKeyedArchiver archivedDataWithRootObject:obj2];
+            
+            
+            NSString *appkey = [AixShare sharedInstance].appsKeys[platform][@"appID"];
+            NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+            NSString *displayName = [NSBundle mainBundle].infoDictionary[@"CFBundleName"];
+            NSDictionary *obj3 = @{@"appKey":appkey,
+                                   @"bundleID":bundleID,
+                                   @"name":displayName};
+            NSData *appData = [NSKeyedArchiver archivedDataWithRootObject:obj3];
+            
+            
+            NSArray *oauthItems = @[@{@"transferObject":transferObjectData},
+                                      @{@"userInfo":userInfoData},
+                                      @{@"app":appData}];
+            [UIPasteboard generalPasteboard].items = oauthItems;
+            
+            NSString *url = [NSString stringWithFormat:@"weibosdk://request?id=%@&sdkversion=003013000",uuid];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            
+            
+        }else{
+            
+            NSError *error = [NSError errorWithDomain:@"微博授权回调页填写错误，请于注册时填写的一致" code:ASWeiboShareErrorredirectURLError userInfo:nil];
+            fail(nil,error);
+        }
     }else{
         
         //web auth
@@ -142,8 +215,7 @@ static NSString *platform = @"weibo";
         }
         
         NSAssert(redirecturi, @"must need");
-        scope = scope ? scope : @"all";
-        NSString *webOauthUrl = [NSString stringWithFormat:@"https://open.weibo.cn/oauth2/authorize?client_id=%@&response_type=code&redirect_uri=%@&scope=%@",appKey,redirecturi,scope];
+        NSString *webOauthUrl = [NSString stringWithFormat:@"https://open.weibo.cn/oauth2/authorize?client_id=%@&response_type=code&redirect_uri=%@&scope=all",appKey,redirecturi];
         
         [self openWebViewByURLString:webOauthUrl];
         
@@ -242,11 +314,10 @@ static NSString *platform = @"weibo";
         
         NSURL *reqUrl = [NSURL URLWithString:@"https://api.weibo.com/oauth2/access_token"];
         
-        NSDictionary *keys = [AixShare sharedInstance].appsKeys[platform];
-        NSString *app_id = keys[@"appID"];
-        NSString *app_key = keys[@"appKey"];
+        NSDictionary *keys    = [AixShare sharedInstance].appsKeys[platform];
+        NSString *app_id      = keys[@"appID"];
+        NSString *app_key     = keys[@"appKey"];
         NSString *redirectURL = keys[@"redirectURL"];
-        
         NSString *arg = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&grant_type=authorization_code&redirect_uri=%@&code=%@",app_id,app_key,redirectURL,code];
         NSData *postData = [arg dataUsingEncoding:NSUTF8StringEncoding];
         
@@ -277,6 +348,55 @@ static NSString *platform = @"weibo";
             [AixShare sharedInstance].oauthFailCallBack(nil,error);
         }
     }
+}
+
++(BOOL)weibo__hanldeOpenURL:(NSURL *)url
+{
+    if ([url.scheme hasPrefix:@"wb"]) {
+        
+        NSArray *items = [UIPasteboard generalPasteboard].items;
+        NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:items.count];
+        
+        for (NSDictionary *subItem in items) {
+            for (NSString *key in subItem) {
+                if ([key isEqualToString:@"transferObject"]) {
+                    result[key] = [NSKeyedUnarchiver unarchiveObjectWithData:subItem[key]];
+                }
+            }
+        }
+        
+       NSDictionary *transferObject = result[@"transferObject"];
+        if ([transferObject[@"__class"] isEqualToString:@"WBAuthorizeResponse"]) {
+            //oauth授权回调
+            NSNumber *statusCode = transferObject[@"statusCode"];
+            if (statusCode.integerValue == 0) {
+                if ([AixShare sharedInstance].oauthSuccessCallBack) {
+                    [AixShare sharedInstance].oauthSuccessCallBack(transferObject);
+                }
+            }else if ([AixShare sharedInstance].oauthFailCallBack){
+                
+                NSError *error = [NSError errorWithDomain:@"微博授权失败" code:statusCode.integerValue userInfo:nil];
+                [AixShare sharedInstance].oauthFailCallBack(transferObject,error);
+            }
+            
+        }else if ([transferObject[@"__class"] isEqualToString:@"WBSendMessageToWeiboResponse"])
+        {
+            //微博分享回调
+            NSNumber *statusCode = transferObject[@"statusCode"];
+            if (statusCode.integerValue == 0) {
+                //分享成功
+                AixShareContent *content = [AixShare sharedInstance].shareContent;
+                [AixShare sharedInstance].shareSuccessCallBack(content);
+                
+            }else{
+                //分享失败
+                NSError *error = [NSError errorWithDomain:@"微博分享失败" code:statusCode.integerValue userInfo:nil];
+                [AixShare sharedInstance].shareFailCallBack(nil,error);
+            }
+        }
+        return YES;
+    }
+    return NO;
 }
 
 @end

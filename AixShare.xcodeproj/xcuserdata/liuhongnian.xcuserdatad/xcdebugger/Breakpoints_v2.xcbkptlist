@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AixShare/AixShareSDK/AixShare+Weibo.m"
-            timestampString = "492006175.376209"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "+shareToWeibo:Success:Fail:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AixShare/AixShareSDK/AixShare+QQ.m"
             timestampString = "492167433.325875"
             startingColumnNumber = "9223372036854775807"
@@ -41,12 +25,76 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AixShare/ViewController.m"
-            timestampString = "492173259.084006"
+            filePath = "AixShare/AixShareSDK/AixShare+Weibo.m"
+            timestampString = "492248846.818681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "-webView:didFinishNavigation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AixShare/ViewController.m"
+            timestampString = "492244244.390348"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-oauthWeibo:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__29-[ViewController oauthWeibo:]_block_invoke"
+                  moduleName = "AixShare"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///iOS/workspace/AixShare/AixShare/ViewController.m"
+                  timestampString = "492248976.61408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__29-[ViewController oauthWeibo:]_block_invoke_2"
+                  moduleName = "AixShare"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///iOS/workspace/AixShare/AixShare/ViewController.m"
+                  timestampString = "492248976.614242"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AixShare/ViewController.m"
+            timestampString = "492244245.548902"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-oauthWeibo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AixShare/AixShareSDK/AixShare+Weibo.m"
-            timestampString = "492173294.236706"
+            timestampString = "492248846.818681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "+weiboAuth:redirectUri:Success:Fail:"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "+weibo__hanldeOpenURL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AixShare/AixShareSDK/AixShare+Weibo.m"
-            timestampString = "492173411.424527"
+            timestampString = "492248846.818681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "-webView:didFinishNavigation:"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "+weibo__hanldeOpenURL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -21,14 +21,15 @@
     
     [AixShare registerWechatWithAppID:@"wx4868b35061f87885"];
     [AixShare registerQQWithAppID:@"1104881792"];
-    [AixShare registerWeiboWithAppID:@"1772193724"
-                              appKey:@"453283216b8c885dad2cdb430c74f62a"
-                         redirectURL:@"http://www.limon.top"];
+    [AixShare registerWeiboWithAppID:@"1776652478"
+                              appKey:@"46faf39ec5dac187a7ad729135fce222"
+                         redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    
     if ([AixShare handleOpenURL:url]) {
         return YES;
     }
