@@ -40,6 +40,8 @@ typedef void(^AuthFail) (NSDictionary *message, NSError *error);
 
 @property (nonatomic,readonly)NSMutableDictionary *appsKeys;//存放各大分享平台的APP key
 
+@property(nonatomic,readonly)NSString *accessToken;
+
 @property (nonatomic,copy  ) shareSuccessHandler shareSuccessCallBack;
 @property (nonatomic,copy  ) shareFailHandler    shareFailCallBack;
 @property (nonatomic,copy  ) AuthSuccess         oauthSuccessCallBack;

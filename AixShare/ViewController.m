@@ -11,7 +11,11 @@
 #import "AixShare+QQ.h"
 #import "AixShare+Weibo.h"
 
+#import "AixShareService.h"
+
 @interface ViewController ()
+
+@property (nonatomic,strong)AixShareService *shareService;
 
 @end
 
@@ -20,6 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    UIImage *image = [UIImage imageNamed:@"shareImage"];
+    
+    _shareService = [[AixShareService alloc] init];
+    [_shareService presentShareSheetView:self.view
+                              shareText:@"阿里巴巴是个快乐的青年"
+                              urlString:@"https://www.taobao.com" image:image];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,15 +133,14 @@
 {
     AixShareContent *content = [[AixShareContent alloc] init];
     content.link = @"http://www.cz001.com.cn";
-    content.title = @"常州网";
-    content.image = [UIImage imageNamed:@"shareImage"];
-    
-    
-    [AixShare shareToWeibo:content Success:^(AixShareContent *shareContent) {
+    content.title = @"常州网官网";
+//    content.image = [UIImage imageNamed:@"shareImage"];
         
-    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
-        
-    }];
+//    [AixShare shareToWeibo:content Success:^(AixShareContent *shareContent) {
+//        
+//    } Fail:^(AixShareContent *shareContent, NSError *shareError) {
+//        
+//    }];
 }
 
 - (IBAction)shareTextToWeibo:(id)sender {

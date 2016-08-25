@@ -26,13 +26,14 @@ typedef NS_ENUM(NSInteger,ASWeiboShareError)
                          Success:(AuthSuccess)success
                             Fail:(AuthFail)fail;
 
++ (BOOL)isInstallWeiboApp;
++ (BOOL)isOauthedWeiBo;
+
 //调用APP直接分享
 + (void)shareToWeibo:(AixShareContent *)shareContent Success:(shareSuccessHandler)success Fail:(shareFailHandler)fail;
 
 //请求API做分享
-+ (void)shareToWeibo:(AixShareContent *)shareContent
-     withAccessToken:(NSString *)token
-             Success:(shareSuccessHandler)success
-                Fail:(shareFailHandler)fail;
++ (void)requestApiShareToWeibo:(AixShareContent *)shareContent Success:(shareSuccessHandler)success Fail:(shareFailHandler)fail;
+
 
 @end

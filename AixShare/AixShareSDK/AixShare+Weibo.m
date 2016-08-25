@@ -18,6 +18,7 @@
 
 @implementation AixShare (Weibo)
 static NSString *platform = @"weibo";
+static NSString *weiboAccessToken;
 
 + (void)registerWeiboWithAppID:(NSString *)appID appKey:(NSString *)appKey redirectURL:(NSString *)redirectUrl
 {
@@ -30,7 +31,8 @@ static NSString *platform = @"weibo";
 
 + (BOOL)isInstallWeiboApp
 {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibosdk://request"]];
+//    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibosdk://request"]];
+    return NO;
 }
 
 /**
@@ -75,7 +77,7 @@ static NSString *platform = @"weibo";
                     @"text":shareContent.title};
         
     }else if ([shareContent isEmpty:nil AndNotEmpty:@[@"title",@"link",@"image"]]) {
-        //图片文字链接分享
+        //链接分享
         NSString *title = shareContent.title;
         NSString *link = shareContent.link;
         UIImage *image = shareContent.image;
@@ -114,42 +116,64 @@ static NSString *platform = @"weibo";
     
 }
 
-+ (void)shareToWeibo:(AixShareContent *)shareContent
-     withAccessToken:(NSString *)token
-             Success:(shareSuccessHandler)success
-                Fail:(shareFailHandler)fail
++ (void)requestApiShareToWeibo:(AixShareContent *)shareContent Success:(shareSuccessHandler)success Fail:(shareFailHandler)fail;
+
 {
-    NSAssert(token, @"accesstoken must need");
+    NSAssert(weiboAccessToken, @"accesstoken must need");
     
     //微博分享就三种方式 纯文本+链接+图片
+    
     //文本
-    
-    //链接
-    NSString *title = shareContent.title;
-    NSString *link = shareContent.link;
-    NSString *shareText = [NSString stringWithFormat:@"%@%@",title,link];
-    
-    NSURL *url = [NSURL URLWithString:@"https://api.weibo.com/2/statuses/update.json"];
-    
-    NSData *bodyData = [[NSString stringWithFormat:@"status=%@&access_token=%@",shareText,token] dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    request.HTTPBody = bodyData;
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSString *shareText;
+    if ([shareContent isEmpty:@[@"image",@"link"] AndNotEmpty:@[@"title"]]) {
         
-        if (!error) {
-            
-            NSDictionary *ret = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:NULL];
-            NSLog(@"ret:%@",ret);
-            
-        }
-    }];
-    [task resume];
+        shareText = shareContent.title;
+    }else if ([shareContent isEmpty:@[@"image"] AndNotEmpty:@[@"link",@"title"]]){
+        
+        //链接
+        shareText = [NSString stringWithFormat:@"%@%@",shareContent.title,shareContent.link];
+    }else{
+        
+        NSError *error = [NSError errorWithDomain:@"分享的内容格式有误,请重新填写" code:ASWeiboShareErrorDataFormatError userInfo:nil];
+        fail(shareContent,error);
+        return;
+    }
     
-    //图片
+        NSURL *url = [NSURL URLWithString:@"https://api.weibo.com/2/statuses/update.json"];
+        
+        NSData *bodyData = [[NSString stringWithFormat:@"status=%@&access_token=%@",shareText,weiboAccessToken] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        request.HTTPMethod = @"POST";
+        request.HTTPBody = bodyData;
+        
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            if (!error) {
+                
+                NSDictionary *ret = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:NULL];
+                NSLog(@"ret:%@",ret);
+                success(shareContent);
+                
+            }else{
+                fail(shareContent,error);
+            }
+        }];
+        [task resume];
+}
+
++ (NSString *)accessToken
+{
+    return weiboAccessToken;
+}
+
++ (BOOL)isOauthedWeiBo
+{
+    if (weiboAccessToken) {
+        return YES;
+    }
+    return NO;
 }
 
 + (void)weiboAuthWithRedirectUri:(NSString *)redirecturi
@@ -333,6 +357,8 @@ static NSString *platform = @"weibo";
             
             if (!error) {
                 weakSelf.oauthSuccessCallBack(result);
+                
+                weiboAccessToken = result[@"access_token"];
                 //主线程关闭页面
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [webView removeFromSuperview];

@@ -18,6 +18,19 @@
 		F61A4CCD1D4F382B00E090B8 /* AixShareSdkHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CCC1D4F382B00E090B8 /* AixShareSdkHeaders.m */; };
 		F61A4CD11D50A45400E090B8 /* shareImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F61A4CD01D50A45400E090B8 /* shareImage.png */; };
 		F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */; };
+		F61B84FE1D59D2BA009B5769 /* AixShareService.m in Sources */ = {isa = PBXBuildFile; fileRef = F61B84FD1D59D2BA009B5769 /* AixShareService.m */; };
+		F61B85011D59D30F009B5769 /* AixShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = F61B85001D59D30F009B5769 /* AixShareView.m */; };
+		F61B85031D59D32B009B5769 /* AixShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61B85021D59D32B009B5769 /* AixShareView.xib */; };
+		F61B85061D59D3AD009B5769 /* UMS_wechat_session_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85041D59D3AD009B5769 /* UMS_wechat_session_icon.png */; };
+		F61B85071D59D3AD009B5769 /* UMS_wechat_session_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85051D59D3AD009B5769 /* UMS_wechat_session_icon@2x.png */; };
+		F61B850A1D59D3F7009B5769 /* UMS_wechat_timeline_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85081D59D3F7009B5769 /* UMS_wechat_timeline_icon.png */; };
+		F61B850B1D59D3F7009B5769 /* UMS_wechat_timeline_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85091D59D3F7009B5769 /* UMS_wechat_timeline_icon@2x.png */; };
+		F61B850E1D59D440009B5769 /* UMS_qzone_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B850C1D59D440009B5769 /* UMS_qzone_icon.png */; };
+		F61B850F1D59D440009B5769 /* UMS_qzone_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B850D1D59D440009B5769 /* UMS_qzone_icon@2x.png */; };
+		F61B85121D59D45D009B5769 /* UMS_qq_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85101D59D45D009B5769 /* UMS_qq_icon.png */; };
+		F61B85131D59D45D009B5769 /* UMS_qq_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85111D59D45D009B5769 /* UMS_qq_icon@2x.png */; };
+		F61B85161D59D493009B5769 /* UMS_sina_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85141D59D493009B5769 /* UMS_sina_icon.png */; };
+		F61B85171D59D493009B5769 /* UMS_sina_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F61B85151D59D493009B5769 /* UMS_sina_icon@2x.png */; };
 		F6E54D1B1D5306CC007781FA /* AixShare+Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E54D1A1D5306CC007781FA /* AixShare+Weibo.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +54,21 @@
 		F61A4CD01D50A45400E090B8 /* shareImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareImage.png; sourceTree = "<group>"; };
 		F61A4CD21D50B15500E090B8 /* AixShare+QQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AixShare+QQ.h"; sourceTree = "<group>"; };
 		F61A4CD31D50B15500E090B8 /* AixShare+QQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+QQ.m"; sourceTree = "<group>"; };
+		F61B84FC1D59D2BA009B5769 /* AixShareService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AixShareService.h; sourceTree = "<group>"; };
+		F61B84FD1D59D2BA009B5769 /* AixShareService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AixShareService.m; sourceTree = "<group>"; };
+		F61B84FF1D59D30F009B5769 /* AixShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AixShareView.h; sourceTree = "<group>"; };
+		F61B85001D59D30F009B5769 /* AixShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AixShareView.m; sourceTree = "<group>"; };
+		F61B85021D59D32B009B5769 /* AixShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AixShareView.xib; sourceTree = "<group>"; };
+		F61B85041D59D3AD009B5769 /* UMS_wechat_session_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UMS_wechat_session_icon.png; sourceTree = "<group>"; };
+		F61B85051D59D3AD009B5769 /* UMS_wechat_session_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UMS_wechat_session_icon@2x.png"; sourceTree = "<group>"; };
+		F61B85081D59D3F7009B5769 /* UMS_wechat_timeline_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UMS_wechat_timeline_icon.png; sourceTree = "<group>"; };
+		F61B85091D59D3F7009B5769 /* UMS_wechat_timeline_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UMS_wechat_timeline_icon@2x.png"; sourceTree = "<group>"; };
+		F61B850C1D59D440009B5769 /* UMS_qzone_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UMS_qzone_icon.png; sourceTree = "<group>"; };
+		F61B850D1D59D440009B5769 /* UMS_qzone_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UMS_qzone_icon@2x.png"; sourceTree = "<group>"; };
+		F61B85101D59D45D009B5769 /* UMS_qq_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UMS_qq_icon.png; sourceTree = "<group>"; };
+		F61B85111D59D45D009B5769 /* UMS_qq_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UMS_qq_icon@2x.png"; sourceTree = "<group>"; };
+		F61B85141D59D493009B5769 /* UMS_sina_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UMS_sina_icon.png; sourceTree = "<group>"; };
+		F61B85151D59D493009B5769 /* UMS_sina_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UMS_sina_icon@2x.png"; sourceTree = "<group>"; };
 		F6E54D191D5306CC007781FA /* AixShare+Weibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AixShare+Weibo.h"; sourceTree = "<group>"; };
 		F6E54D1A1D5306CC007781FA /* AixShare+Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AixShare+Weibo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +108,22 @@
 				F61A4CAD1D4F29B000E090B8 /* AppDelegate.m */,
 				F61A4CAF1D4F29B000E090B8 /* ViewController.h */,
 				F61A4CB01D4F29B000E090B8 /* ViewController.m */,
+				F61B84FC1D59D2BA009B5769 /* AixShareService.h */,
+				F61B84FD1D59D2BA009B5769 /* AixShareService.m */,
+				F61B84FF1D59D30F009B5769 /* AixShareView.h */,
+				F61B85001D59D30F009B5769 /* AixShareView.m */,
+				F61B85021D59D32B009B5769 /* AixShareView.xib */,
 				F61A4CB21D4F29B000E090B8 /* Main.storyboard */,
+				F61B85141D59D493009B5769 /* UMS_sina_icon.png */,
+				F61B85151D59D493009B5769 /* UMS_sina_icon@2x.png */,
+				F61B85101D59D45D009B5769 /* UMS_qq_icon.png */,
+				F61B85111D59D45D009B5769 /* UMS_qq_icon@2x.png */,
+				F61B850C1D59D440009B5769 /* UMS_qzone_icon.png */,
+				F61B850D1D59D440009B5769 /* UMS_qzone_icon@2x.png */,
+				F61B85081D59D3F7009B5769 /* UMS_wechat_timeline_icon.png */,
+				F61B85091D59D3F7009B5769 /* UMS_wechat_timeline_icon@2x.png */,
+				F61B85041D59D3AD009B5769 /* UMS_wechat_session_icon.png */,
+				F61B85051D59D3AD009B5769 /* UMS_wechat_session_icon@2x.png */,
 				F61A4CB51D4F29B000E090B8 /* Assets.xcassets */,
 				F61A4CB71D4F29B000E090B8 /* LaunchScreen.storyboard */,
 				F61A4CBA1D4F29B000E090B8 /* Info.plist */,
@@ -172,8 +215,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61B85121D59D45D009B5769 /* UMS_qq_icon.png in Resources */,
 				F61A4CB91D4F29B000E090B8 /* LaunchScreen.storyboard in Resources */,
 				F61A4CB61D4F29B000E090B8 /* Assets.xcassets in Resources */,
+				F61B850F1D59D440009B5769 /* UMS_qzone_icon@2x.png in Resources */,
+				F61B85071D59D3AD009B5769 /* UMS_wechat_session_icon@2x.png in Resources */,
+				F61B85031D59D32B009B5769 /* AixShareView.xib in Resources */,
+				F61B850B1D59D3F7009B5769 /* UMS_wechat_timeline_icon@2x.png in Resources */,
+				F61B85061D59D3AD009B5769 /* UMS_wechat_session_icon.png in Resources */,
+				F61B85131D59D45D009B5769 /* UMS_qq_icon@2x.png in Resources */,
+				F61B850E1D59D440009B5769 /* UMS_qzone_icon.png in Resources */,
+				F61B850A1D59D3F7009B5769 /* UMS_wechat_timeline_icon.png in Resources */,
+				F61B85171D59D493009B5769 /* UMS_sina_icon@2x.png in Resources */,
+				F61B85161D59D493009B5769 /* UMS_sina_icon.png in Resources */,
 				F61A4CB41D4F29B000E090B8 /* Main.storyboard in Resources */,
 				F61A4CD11D50A45400E090B8 /* shareImage.png in Resources */,
 			);
@@ -193,6 +247,8 @@
 				F61A4CD41D50B15500E090B8 /* AixShare+QQ.m in Sources */,
 				F61A4CC41D4F36B800E090B8 /* AixShare.m in Sources */,
 				F61A4CC71D4F36D700E090B8 /* AixShare+Wechat.m in Sources */,
+				F61B85011D59D30F009B5769 /* AixShareView.m in Sources */,
+				F61B84FE1D59D2BA009B5769 /* AixShareService.m in Sources */,
 				F61A4CAB1D4F29B000E090B8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yaocheng Wang (PLF99J54Q2)";
 				INFOPLIST_FILE = AixShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -315,11 +372,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Internet Media Center (6C2R3R9CB5)";
 				INFOPLIST_FILE = AixShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cz001.AixShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "121b610c-e70a-4bf4-92f8-926edf3913b8";
 			};
 			name = Release;
 		};
